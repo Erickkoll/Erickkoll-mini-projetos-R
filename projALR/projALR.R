@@ -53,3 +53,33 @@ maior_gasto_idade <- sqldf("SELECT AGE AS idade, SUM(TOTCHG) AS gasto_por_idade
                            LIMIT 1")
 maior_gasto_idade
 
+#Gasto das internações por sexo
+
+gasto_p_genero <- sqldf("SELECT FEMALE AS genero, SUM(TOTCHG) AS gasto_por_genero 
+                       FROM dados 
+                       GROUP BY FEMALE")
+gasto_p_genero
+
+#Gasto por médio por raça
+
+gasto_p_raça <- sqldf("SELECT RACE AS raça, AVG(TOTCHG) AS gasto_medio_raça 
+                       FROM dados 
+                       GROUP BY RACE")
+gasto_p_raça
+
+#Media de gastos hospitalares por idade para pacientes com mais de 10 anos
+
+gasto_p_idade <- sqldf("SELECT AGE AS idade, AVG(TOTCHG) AS media_gasto_por_idade 
+                       FROM dados
+                       WHERE AGE > 10
+                       GROUP BY AGE")
+gasto_p_idade
+
+#Gasto por idade com crianças maiores que 10 anos e gasto superior a 3000
+
+gasto_p_idade <- sqldf("SELECT AGE AS idade, AVG(TOTCHG) AS media_gasto_por_idade 
+                       FROM dados
+                       WHERE AGE > 10
+                       GROUP BY AGE
+                       HAVING AVG(TOTCHG) > 3000")
+gasto_p_idade
