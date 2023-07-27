@@ -37,3 +37,5 @@ moda_idade
 var_idade <- sqldf("SELECT VAR_SAMP(AGE) as var_idade FROM dados")
 var_idade
 
+
+
