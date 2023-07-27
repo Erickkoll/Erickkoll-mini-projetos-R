@@ -1,4 +1,4 @@
-setwd("C:/Users/erick/OneDrive/Área de Trabalho/Programação/Big Data Analytcs com R e Azure/projALR")
+setwd("C:/Users/erick/OneDrive/Área de Trabalho/Programação/Big Data Analytics com R e Azure/min_projetos_R/projALR")
 getwd()
 
 dados <- read.csv("dataset.csv")
@@ -37,5 +37,19 @@ moda_idade
 var_idade <- sqldf("SELECT VAR_SAMP(AGE) as var_idade FROM dados")
 var_idade
 
+#Gasto das internações por idade
 
+gasto_p_idade <- sqldf("SELECT AGE AS idade, SUM(TOTCHG) AS gasto_por_idade 
+                       FROM dados 
+                       GROUP BY AGE")
+gasto_p_idade
+
+#Idade que gera maior gasto com iternações hospitalares
+
+maior_gasto_idade <- sqldf("SELECT AGE AS idade, SUM(TOTCHG) AS gasto_por_idade 
+                           FROM dados 
+                           GROUP BY AGE 
+                           ORDER BY gasto_por_idade DESC 
+                           LIMIT 1")
+maior_gasto_idade
 
