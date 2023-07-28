@@ -142,6 +142,25 @@ summary(modelo_anova_2)
 #Como o tempo de permanência é o fator crucial para paciente internados, 
 #desejamos descobrir se o tempo de permanência pode ser previsto a partir da idade, gênero e raça
 
-
+modelo_lr <- lm(LOS ~ AGE + FEMALE + RACE, data = dados)
+summary(modelo_lr)
 
 #Quais variável tem mais impacto nos custos de internação hospitalar?
+
+modelo_lr_v1 <- lm(TOTCHG ~ ., data = dados)
+summary(modelo_lr_v1)
+
+modelo_lr_v2 <- lm(TOTCHG ~ AGE + LOS + APRDRG, data = dados)
+summary(modelo_lr_v2)
+
+modelo_lr_v3 <- lm(TOTCHG ~ LOS + APRDRG, data = dados)
+summary(modelo_lr_v3)
+
+modelo_lr_v3 <- lm(TOTCHG ~ LOS, data = dados)
+summary(modelo_lr_v3)
+
+modelo_lr_v3 <- lm(TOTCHG ~ APRDRG, data = dados)
+summary(modelo_lr_v3)
+
+#Logo o tempo de internação é a variável com maior impacto
+#No entando para um melhor modelo o melhor é analisar as variaveis tipo de diagnóstico, tempo de internação e idade
