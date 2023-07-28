@@ -103,10 +103,24 @@ menor_idade
   
 #Qual grupo baseado em diagnóstico(APRDRG) tem o maior gasto no hospital?
 
+quantiles <- quantile(dados$APRDRG, probs = seq(0, 1, by = 0.2))
+dados$CLUSTER <- as.integer(cut(dados$APRDRG, breaks = 5, include.lowest = TRUE, labels = FALSE))
 
+View(dados)
 
+grupo_APRDRG_gasto <- sqldf("SELECT CLUSTER AS grupo,
+                            SUM(TOTCHG) AS valor
+                            FROM dados")
+grupo_APRDRG_gasto
+
+def_grupo_3 <- sqldf("SELECT APRDRG AS dianostico
+                     FROM dados
+                     WHERE CLUSTER == 3")
+def_grupo_3
 
 #A combinação de idade e gênero dos pacientes influencia no gasto total em internações no hospital?
+
+
 
 #Como o tempo de permanência é o fator crucial para paciente internados, 
 #desejamos descobrir se o tempo de permanência pode ser previsto a partir da idade, gênero e raça
