@@ -6,6 +6,8 @@ View(dados)
 
 install.packages("sqldf")
 library(sqldf)
+library(Amelia)
+library(dplyr)
 
 missmap(dados, 
         main = "Titanic Training Data - Mapa de Dados Missing", 
@@ -83,3 +85,30 @@ gasto_p_idade <- sqldf("SELECT AGE AS idade, AVG(TOTCHG) AS media_gasto_por_idad
                        GROUP BY AGE
                        HAVING AVG(TOTCHG) > 3000")
 gasto_p_idade
+
+#Qual a distribuição da idade dos pacientes que frequentam o hospital?
+
+
+hist(dados$AGE, main= "Histograma da distribuição da idade", xlab = "idade")
+
+#Qual a faixa etária tem o maior gasto total no hospital?
+
+menor_idade <- sqldf("SELECT AGE AS idade,
+                     SUM(TOTCHG) AS valor
+                     FROM dados
+                     GROUP BY AGE
+                     ORDER BY valor DESC
+                     LIMIT 1")
+menor_idade
+  
+#Qual grupo baseado em diagnóstico(APRDRG) tem o maior gasto no hospital?
+
+
+
+
+#A combinação de idade e gênero dos pacientes influencia no gasto total em internações no hospital?
+
+#Como o tempo de permanência é o fator crucial para paciente internados, 
+#desejamos descobrir se o tempo de permanência pode ser previsto a partir da idade, gênero e raça
+
+#Quais variável tem mais impacto nos custos de internação hospitalar?
